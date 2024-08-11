@@ -1,0 +1,167 @@
+﻿@model List<E_Learning.Models.Cart.Cart>
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    double totalPrice = Model != null && Model.Any() ? Model.Sum(item => item.Price) : 0;
+}
+
+<!-- bread crumb area -->
+<div class="rts-bread-crumbarea-1 rts-section-gap bg_image">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-main-wrapper">
+                    <h1 class="title">Cart</h1>
+                    <!-- breadcrumb pagination area -->
+                    <div class="pagination-wrapper">
+                        <a asp-action="Index" asp-controller="HomePage">Home</a>
+                        <i class="fa-regular fa-chevron-right"></i>
+                        <a class="active" href="#">Cart</a>
+                    </div>
+                    <!-- breadcrumb pagination area end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- bread crumb area end -->
+<!-- Shop area start -->
+<main class="ms-main container">
+    <div class="ms-page-content">
+        <!--================= Cart Area Start =================-->
+        <article id="post-283" class="post-283 page type-page status-publish hentry">
+            <div class="ms-default-page container">
+                <div class="woocommerce">
+                    <div class="woocommerce-notices-wrapper"></div>
+                    <div class="ms-woocommerce-cart-form-wrapper row">
+                        <table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents col-6 me-5 mt-5">
+                            <thead>
+                                <tr>
+                                    <th class="product-remove">Img</th>
+                                    <th class="product-thumbnail">Course Name</th>
+                                    <th class="product-name">Instructor Name</th>
+                                    <th class="product-name">Price</th>
+                                    <th class="product-price"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model != null && Model.Any())
+                                {
+
+                                    @foreach (var d in Model)
+                                    {
+                                        <tr class="woocommerce-cart-form__cart-item cart_item">
+                                            <td class="product-thumbnail">
+                                                <i class="fa fa-book" style="font-size:30px"></i>
+                                            </td>
+                                            <td class="product-name">
+                                                @d.CourseName
+                                            </td>
+                                            <td class="product-name" data-title="Product">
+                                                @d.InstructorName
+                                            </td>
+                                            <td class="product-price" data-title="Price">
+                                                <span class="woocommerce-Price-amount amount">
+                                                    @d.Price
+                                                </span>
+                                            </td>
+                                            <td class="product-remove">
+                                                <a asp-action="RemoveCartItem" asp-route-id="@d.Id" class="remove" aria-label="Remove this item">
+                                                    <svg viewBox="0 0 200 200" width="18" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M114,100l49-49a9.9,9.9,0,0,0-14-14L100,86,51,37A9.9,9.9,0,0,0,37,51l49,49L37,149a9.9,9.9,0,0,0,14,14l49-49,49,49a9.9,9.9,0,0,0,14-14Z">
+                                                        </path>
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                }
+
+                            </tbody>
+                        </table>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4">
+                            <div class="ms-cart-collaterals cart-collaterals">
+                                <div class="ms-cart-totals cart_totals">
+                                    <h3 class="animated fadeIn">Cart totals</h3>
+                                    <table class="shop_table shop_table_responsive">
+                                        <tbody>
+                                            <tr class="cart-subtotal">
+                                                <th>Subtotal</th>
+                                                <td data-title="Subtotal">
+                                                    <span class="woocommerce-Price-amount amount">
+                                                        <bdi><span class="woocommerce-Price-currencySymbol">₹</span>@totalPrice</bdi>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr class="order-total">
+                                                <th>Total</th>
+                                                <td data-title="Total">
+                                                    <strong>
+                                                        <span class="woocommerce-Price-amount amount">
+                                                            <bdi><span class="woocommerce-Price-currencySymbol">₹</span>@totalPrice</bdi>
+                                                        </span>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="ms-proceed-to-checkout wc-proceed-to-checkout">
+                                        <a href="javascript:void(0);" class="rts-btn btn-primary" onclick="openRazorpay(@totalPrice * 100)">Proceed to checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </article>
+        <!--================= Cart Area End =================-->
+        <!--================= Services Area Start =================-->
+        <!--================= Services Area End =================-->
+    </div>
+</main>
+
+<!-- Hidden form to submit payment details -->
+<form id="razorpayForm" action="@Url.Action("PlaceOrderFun", "HomePage")" method="post">
+    <input type="hidden" id="payment_id" name="payment_id" />
+    <input type="hidden" id="payment_status" name="payment_status" />
+</form>
+
+ 
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function openRazorpay(amountInPaise) {
+            var options = {
+                "key": "rzp_test_UMVGiuA5sKQxEW", // Replace with your actual Razorpay key
+                "amount": amountInPaise, // Amount is in paise (100 paise = ₹1)
+                "currency": "INR", // Use INR for Indian Rupees
+                "name": "Your Company",
+                "description": "Purchase Description",
+                "image": "https://your_logo_url", // Optional: Your company logo URL
+                "handler": function (response) {
+                    document.getElementById('payment_id').value = response.razorpay_payment_id;
+                    document.getElementById('payment_status').value = 'Success'; // Or use the actual status if available
+                    document.getElementById('razorpayForm').submit();
+                },
+                "prefill": {
+                    "name": "Customer Name",
+                    "email": "customer.email@example.com",
+                    "contact": "9876543210"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        }
+    </script>
+ 

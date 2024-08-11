@@ -1,0 +1,353 @@
+﻿@model List<E_Learning.Models.Promotion.Promotion>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!-- banner area start -->
+<div class="banner-area-one shape-move mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
+                <div class="banner-content-one">
+                    <div class="inner">
+                        <div class="pre-title-banner">
+                            <img src="../assets/images/banner/bulb.png" width="22" alt="icon">
+                            <span>Gateway to Lifelong Learning</span>
+                        </div>
+                        <h1 class="title-banner">
+                            Unlock Your Potential <br>
+                            with <span>Online Learning</span>
+                            <img src="../assets/images/banner/02.png" alt="banner">
+                        </h1>
+                        <p class="disc">
+                            Discover a world of knowledge and opportunities with our online
+                            education platform pursue a new career.
+                        </p>
+                        <div class="banner-btn-author-wrapper">
+                            <a asp-action="Courses" asp-controller="HomePage" class="rts-btn btn-primary with-arrow">View All Course <i class="fa-regular fa-arrow-right"></i></a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1">
+                <div class="banner-right-img">
+                    <img src="../assets/images/banner/01.png" alt="banner">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="review-thumb">
+        
+    </div>
+    <div class="shape-image">
+        <div class="shape one" data-speed="0.04" data-revert="true"><img src="../assets/images/banner/shape/banner-shape01.svg" alt="shape_image"></div>
+        <div class="shape two" data-speed="0.04"><img src="../assets/images/banner/shape/banner-shape02.svg" alt="shape_image"></div>
+        <div class="shape three" data-speed="0.04"><img src="../assets/images/banner/shape/banner-shape03.svg" alt="shape_image"></div>
+    </div>
+</div>
+<!-- banner area end -->
+
+<!-- about area start -->
+<div class="about-area-start rts-section-gapBottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-12">
+                <!-- about-one-imagearea -->
+                <div class="about-one-left-image">
+                    <div class="first-order">
+                        
+                        <div class="thumb-bottom">
+                            <img src="../assets/images/about/02.jpg" alt="about">
+                        </div>
+                    </div>
+                    <div class="second-order">
+                        <img src="../assets/images/about/01.jpg" alt="about">
+                        <div class="vedio-icone">
+                            
+                            <div class="video-overlay">
+                                <a class="video-overlay-close">×</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- about-one-imagearea end -->
+            </div>
+            <div class="col-xl-6 col-lg-12 pl--60 pl_lg--15 pl_md--10 pl_sm--10 pt_lg--50 pt_md--50 pt_sm--50">
+                <div class="title-area-left-style">
+                    <div class="pre-title">
+                        <img src="../assets/images/banner/bulb.png" alt="icon">
+                        <span>Gateway to Lifelong Learning</span>
+                    </div>
+                    <h2 class="title">
+                        Know MasstechEdu Empowering
+                        Learners Worldwide
+                    </h2>
+                    <p class="post-title">We are passionate about education and dedicated to providing high- <br> quality learning resources for learners of all backgrounds.</p>
+                </div>
+                <div class="about-inner-right-one">
+                    <div class="what-you-get">
+                        <!-- single-facilities -->
+                        <div class="single-facilityes">
+                            <div class="icon">
+                                <img src="../assets/images/about/icon/01.png" alt="icon-image">
+                            </div>
+                            <div class="information">
+                                <h5 class="title">Learn with Expert </h5>
+                                <p>We are passionate education.</p>
+                            </div>
+                        </div>
+                        <!-- single-facilities end -->
+                        <!-- single-facilities -->
+                        <div class="single-facilityes">
+                            <div class="icon">
+                                <img src="../assets/images/about/icon/02.png" alt="icon-image">
+                            </div>
+                            <div class="information">
+                                <h5 class="title">Expert Instructors</h5>
+                                <p>We are passionate about education</p>
+                            </div>
+                        </div>
+                        <!-- single-facilities end -->
+                    </div>
+                    <div class="author-area">
+                        <div class="single-author-and-info">
+                            <img src="~/assets/images/ceo.jpeg" width="100px"/>
+                            <div class="information">
+                                <a href="#">
+                                    <h6 class="title">Abhishek Wikal</h6>
+                                </a>
+                                <p class="desig">CEO, MasstechEdu</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- about area end -->
+
+
+<!-- why choose us section area start -->
+<div class="why-choose-us bg-blue bg-choose-us-one bg_image rts-section-gap shape-move">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="why-choose-us-area-image pb--50">
+                    <img class="one" src="../assets/images/why-choose/02.jpg" alt="why-choose">
+                    <div class="border-img">
+                        <img class="two ml--20" src="../assets/images/why-choose/03.jpg" alt="why-choose">
+                    </div>
+                    <div class="circle-animation">
+                        <a class="uni-circle-text uk-background-white dark:uk-background-gray-80 uk-box-shadow-large uk-visible@m" href="#view_in_opensea">
+                            <svg class="uni-circle-text-path uk-text-secondary uni-animation-spin" viewBox="0 0 100 100" width="200" height="200">
+                                <defs>
+                                    <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0">
+                                    </path>
+                                </defs>
+                                <text font-size="11.2">
+                                    <textPath xlink:href="#circle">About Masstech • About Masstech •</textPath>
+                                </text>
+                            </svg>
+                            <i class="fa-regular fa-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 pl--90 pl_md--15 mt_md--50 pl_sm--15 pt_sm--50">
+                <div class="title-area-left-style">
+                    <div class="pre-title">
+                        <img src="../assets/images/banner/bulb-2.png" alt="icon">
+                        <span>Why Choose Us</span>
+                    </div>
+                    <h2 class="title">
+                        Masstech Your Path to
+                        Excellence & Success
+                    </h2>
+                    <p class="post-title">We are passionate about education and dedicated to providing high- <br> quality learning resources for learners of all backgrounds.</p>
+                </div>
+                <div class="why-choose-main-wrapper-1">
+                    <!-- single choose reason -->
+                    <div class="single-choose-reason-1">
+                        <div class="icon">
+                            <img src="../assets/images/why-choose/icon/01.png" alt="icon">
+                        </div>
+                        <h6 class="title">
+                            Expert
+                            Instructors
+                        </h6>
+                    </div>
+                    <!-- single choose reason end -->
+                    <!-- single choose reason -->
+                    <div class="single-choose-reason-1">
+                        <div class="icon">
+                            <img src="../assets/images/why-choose/icon/02.png" alt="icon">
+                        </div>
+                        <h6 class="title">
+                            Interactive
+                            Learning
+                        </h6>
+                    </div>
+                    <!-- single choose reason end -->
+                    <!-- single choose reason -->
+                    <div class="single-choose-reason-1">
+                        <div class="icon">
+                            <img src="../assets/images/why-choose/icon/03.png" alt="icon">
+                        </div>
+                        <h6 class="title">
+                            Affordable
+                            Learning
+                        </h6>
+                    </div>
+                    <!-- single choose reason end -->
+                    <!-- single choose reason -->
+                    <div class="single-choose-reason-1">
+                        <div class="icon">
+                            <img src="../assets/images/why-choose/icon/04.png" alt="icon">
+                        </div>
+                        <h6 class="title">
+                            Career
+                            Advance
+                        </h6>
+                    </div>
+                    <!-- single choose reason end -->
+                    <!-- single choose reason -->
+                    <div class="single-choose-reason-1">
+                        <div class="icon">
+                            <img src="../assets/images/why-choose/icon/05.png" alt="icon">
+                        </div>
+                        <h6 class="title">
+                            Course
+                            Selection
+                        </h6>
+                    </div>
+                    <!-- single choose reason end -->
+                    <!-- single choose reason -->
+                    <div class="single-choose-reason-1">
+                        <div class="icon">
+                            <img src="../assets/images/why-choose/icon/06.png" alt="icon">
+                        </div>
+                        <h6 class="title">
+                            Support
+                            Community
+                        </h6>
+                    </div>
+                    <!-- single choose reason end -->
+                </div>
+                <a asp-action="Courses" asp-controller="HomePage" class="rts-btn btn-primary-white with-arrow">View All Course <i class="fa-regular fa-arrow-right"></i></a>
+            </div> 
+        </div>
+    </div>
+    <div class="shape-image">
+        <div class="shape one" data-speed="0.04" data-revert="true"><img src="../assets/images/banner/15.png" alt=""></div>
+        <div class="shape two" data-speed="0.04"><img src="../assets/images/banner/shape/banner-shape02-w.svg" alt=""></div>
+        <div class="shape three" data-speed="0.04"><img src="../assets/images/banner/16.png" alt=""></div>
+    </div>
+</div>
+<!-- why choose us section area end -->
+<!-- up coming events area start -->
+
+<!-- instructor area start -->
+<div class="instrustor-area rts-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="title-between-area align-items-end">
+                    <div class="title-area-left-style">
+                        <div class="pre-title">
+                            <img src="../assets/images/banner/bulb.png" alt="icon">
+                            <span>Instructor</span>
+                        </div>
+                        <h2 class="title">Our Professional Instructor</h2>
+                        <p class="post-title">You'll find something to spark your curiosity and enhance</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row g-5 mt--10">
+            <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                <!-- single instrustor -->
+                <div class="single-instructor">
+                    <div class="thumbnail-img">
+                        <a href="#" class="thumbnail">
+                            <img src="../assets/images/instructor/KrishSir.jpeg" alt="instructor">
+                        </a>
+                        <div class="social-img-instructor">
+                            <ul>
+                                <li><a href="#"><i class="fa-sharp fa-light fa-share-nodes"></i></a></li>
+                                <li class="bottom"><a href="https://in.linkedin.com/in/krish-kheloji-940a83244" target=_blank><i class="fa-brands fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <h5 class="title">Krish Sir</h5>
+                    </a>
+                    <p>Full Stack Developer</p>
+                </div>
+                <!-- single instrustor end -->
+            </div>
+        </div>
+    </div>
+</div>
+@* <section class="container">
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner w-100">
+            @if (Model != null && Model.Any())
+            {
+                var first = true;
+                foreach (var d in Model)
+                {
+                    <div class="carousel-item @(first ? "active" : "")">
+                        <img src="@d.CourseImage" class="d-block img w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@d.CourseName</h5>
+                            <h3>@d.OfferPrice</h3>
+                            <h4>@d.ValidUpTo</h4>
+                            <p>@d.Description</p>
+                        </div>
+                    </div>
+                    first = false;
+                }
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section> *@
+<!-- instructor area start -->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="call-to-sction bg_image shape-move">
+                <h2 class="title">Skills Certificate From <br> Masstech Edu</h2>
+                <div class="cta-image">
+                    <img src="../assets/images/cta/women.png" alt="">
+                </div>
+                <div class="shape-image">
+                    <div class="shape one" data-speed="0.04"><img src="../assets/images/cta/03.svg" alt=""></div>
+                    <div class="shape two" data-speed="0.04"><img src="../assets/images/cta/04.svg" alt=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- cart area edn -->
+

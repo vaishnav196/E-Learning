@@ -1,0 +1,238 @@
+﻿@{
+    ViewData["Title"] = "AddQuizes";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var courseNames = ViewBag.CourseNames as List<string>;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>te1</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col-sm-12">
+                        <div class="page-sub-header">
+                            <h3 class="page-title">Add Quiz</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Courses</a></li>
+                                <li class="breadcrumb-item active">Add Quiz</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="card comman-shadow">
+                        <div class="card-body">
+                            <div id="courseSelection">
+                                <form id="courseForm">
+                                    <div class="form-group mb-3">
+                                        <label for="CourseName">Course Name</label>
+                                        <select id="CourseName" name="CourseName" class="form-control">
+                                            <option value="">Select Course Name</option>
+                                            @foreach (var courseName in courseNames)
+                                            {
+                                                <option value="@courseName">@courseName</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Subcourse">Subcourse</label>
+                                        <select id="Subcourse" name="Subcourse" class="form-control" disabled>
+                                            <option value="">Select Subcourse</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Title">Title</label>
+                                        <select id="Title" name="Title" class="form-control" disabled>
+                                            <option value="">Select Title</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="no_of_quiz">Enter Number of quizzes you want to add:</label>
+                                        <input type="text" id="no_of_quiz" name="no_of_quiz" class="form-control" />
+                                    </div>
+                                    <button type="button" id="startQuiz" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+
+                            <div id="quizForm" style="display: none;">
+                                <h2>Quiz Entry</h2>
+                                <form id="addQuizForm">
+                                    <div class="form-group mb-3">
+                                        <label for="question">Question:</label>
+                                        <input type="text" id="question" name="question" class="form-control" required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Option1">Option 1:</label>
+                                        <input type="text" id="Option1" name="Option[0]" class="form-control" required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Option2">Option 2:</label>
+                                        <input type="text" id="Option2" name="Option[1]" class="form-control" required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Option3">Option 3:</label>
+                                        <input type="text" id="Option3" name="Option[2]" class="form-control" required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="Option4">Option 4:</label>
+                                        <input type="text" id="Option4" name="Option[3]" class="form-control" required />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="answer">Answer of question:</label>
+                                        <input type="text" id="answer" name="answer" class="form-control" required />
+                                    </div>
+                                    <button type="button" id="submitQuiz" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                            <div id="message" style="display: none;">
+                                <h2 id="completionMessage"></h2>
+                                <a href="@Url.Action("AddQuizes", "Admin")" class="btn btn-primary">Back to Course Selection</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#CourseName').change(function () {
+                var courseName = $(this).val();
+                $('#Subcourse').prop('disabled', true);
+                $('#Title').prop('disabled', true);
+                $('#Subcourse').empty().append('<option value="">Select Subcourse</option>');
+                $('#Title').empty().append('<option value="">Select Title</option>');
+
+                if (courseName) {
+                    $.getJSON('@Url.Action("GetSubcourses", "Admin")', { courseName: courseName }, function (data) {
+                        if (data.length > 0) {
+                            $('#Subcourse').prop('disabled', false);
+                            $.each(data, function (i, subcourse) {
+                                $('#Subcourse').append('<option value="' + subcourse + '">' + subcourse + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            $('#Subcourse').change(function () {
+                var courseName = $('#CourseName').val();
+                var subcourse = $(this).val();
+                $('#Title').prop('disabled', true);
+                $('#Title').empty().append('<option value="">Select Title</option>');
+
+                if (subcourse) {
+                    $.getJSON('@Url.Action("GetTitles", "Admin")', { courseName: courseName, subcourse: subcourse }, function (data) {
+                        if (data.length > 0) {
+                            $('#Title').prop('disabled', false);
+                            $.each(data, function (i, title) {
+                                $('#Title').append('<option value="' + title + '">' + title + '</option>');
+                            });
+                        }
+                    });
+                }
+            });
+
+            $('#startQuiz').click(function () {
+                var courseName = $('#CourseName').val();
+                var subcourse = $('#Subcourse').val();
+                var title = $('#Title').val();
+                var no_of_quiz = $('#no_of_quiz').val();
+
+                if (!courseName || !subcourse || !title || !no_of_quiz) {
+                    alert('Please fill all the fields.');
+                    return;
+                }
+
+                var requestData = {
+                    no_of_quiz: parseInt(no_of_quiz), // Ensure no_of_quiz is parsed as integer if needed
+                    courseName: courseName,
+                    subcourse: subcourse,
+                    title: title
+                };
+                console.log("requestData:", requestData);
+
+                $.ajax({
+                    url: '@Url.Action("SetQuizCount", "Admin")',
+                    type: 'POST',
+                    data: $.param(requestData), // Serialize requestData object to form-urlencoded string
+                    success: function (response) {
+                        if (response.success) {
+                            $('#courseSelection').hide();
+                            $('#quizForm').show();
+                        } else {
+                            alert('Error setting quiz count.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error setting quiz count.');
+                    }
+                });
+            });
+
+
+
+            $('#submitQuiz').click(function () {
+                var question = $('#question').val();
+                var Option1 = $('#Option1').val();
+                var Option2 = $('#Option2').val();
+                var Option3 = $('#Option3').val();
+                var Option4 = $('#Option4').val();
+                var answer = $('#answer').val();
+
+                if (!question || !Option1 || !Option2 || !Option3 || !Option4 || !answer) {
+                    alert('Please fill all the fields.');
+                    return;
+                }
+
+                var quizData = {
+                    question: question,
+                    Option1: Option1,
+                    Option2: Option2,
+                    Option3: Option3,
+                    Option4: Option4,
+                    answer: answer
+                };
+
+                console.log("quizData:", quizData);
+
+                $.ajax({
+                    url: '@Url.Action("AddQuiz", "Admin")',
+                    type: 'POST',
+                    data: $.param(quizData), // Serialize quizData object to form-urlencoded string
+                    success: function (response) {
+                        if (response.success) {
+                            if (response.message) {
+                                $('#quizForm').hide();
+                                $('#message').show();
+                                $('#completionMessage').text(response.message);
+                            } else {
+                                $('#addQuizForm')[0].reset();
+                            }
+                        } else {
+                            alert('Error adding quiz.');
+                        }
+                    },
+                    error: function () {
+                        alert('Error adding quiz.');
+                    }
+                });
+            });
+
+
+        });
+    </script>
+</body>

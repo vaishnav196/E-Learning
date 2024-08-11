@@ -1,0 +1,90 @@
+﻿@model E_Learning.Models.Promotion.Promotion
+
+@{
+    ViewData["Title"] = "AddPromotion";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="page-sub-header">
+                        <h3 class="page-title">Create Promotion</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Promotion</a></li>
+                            <li class="breadcrumb-item active">Create Promotion</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card comman-shadow">
+                    <div class="card-body">
+                        <form asp-action="CreatePromotion" method="post">
+                            <div class="form-group">
+                                <label asp-for="CourseImage" class="control-label"></label>
+                                <input asp-for="CourseImage" class="form-control" />
+                                <span asp-validation-for="CourseImage" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CourseName" class="control-label"></label>
+                                <input asp-for="CourseName" class="form-control" />
+                                <span asp-validation-for="CourseName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <textarea asp-for="Description" class="form-control"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="OfferPrice" class="control-label"></label>
+                                <input asp-for="OfferPrice" class="form-control" />
+                                <span asp-validation-for="OfferPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ValidUpTo" class="control-label"></label>
+                                <input asp-for="ValidUpTo" class="form-control" type="date" />
+                                <span asp-validation-for="ValidUpTo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '@TempData["SuccessMessage"]'
+                });
+        </text>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: '@TempData["ErrorMessage"]'
+                });
+        </text>
+    }
+        });
+</script>

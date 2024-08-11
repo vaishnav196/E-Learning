@@ -1,0 +1,351 @@
+﻿@model E_Learning.Models.Comments.CourseDetailsViewModel
+@{
+    ViewData["Title"] = "CourseMainDetails";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    int duration = Convert.ToInt32(Model.Course.Duration);
+
+    int fullStars = (int)Model.Rating;
+    int emptyStars = 5 - fullStars;
+}
+<style>
+    .comments-section {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .comment {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+    }
+</style>
+ 
+<!-- course details breadcrumb -->
+<div class="course-details-breadcrumb-1 bg_image rts-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-course-left-align-wrapper">
+                    <div class="meta-area">
+                        <a href="index.html">Home</a>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a class="active" href="#">Course Details</a>
+                    </div>
+                    <h1 class="title">
+                        @Model.Course.CourseName
+                    </h1>
+                    <div class="rating-area">
+                        <div class="stars-area">
+                            <span>@Model.Rating</span>
+                            @for (int i = 0; i < fullStars; i++)
+                            {
+                                <i class="fa-solid fa-star"></i>
+                            }
+                            @for (int i = 0; i < emptyStars; i++)
+                            {
+                                <i class="fa-regular fa-star"></i>
+                            }
+                        </div>
+                      
+                        <div class="calender-area-stars">
+                            <i class="fa-light fa-calendar-lines-pen"></i>
+                            <span>@Model.Course.CreatedAt</span>
+                        </div>
+                    </div>
+                    <div class="author-area">
+                        <div class="author">
+                            <img src="../assets/images/instructor/KrishSir.jpeg" width="50" alt="breadcrumb">
+                            <h6 class="name"><span class="fw-light me-2"> InstructorName :</span>@Model.Course.InstructorName</h6>
+                        </div>
+                        <p> <span>Categories: </span> @Model.Course.CourseName</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- course details breadcrumb end -->
+<!-- course details area start -->
+<div class="rts-course-area rts-section-gap">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8 order-cl-1 order-lg-1 order-md-2 order-sm-2 order-2">
+                <div class="course-details-btn-wrapper pb--50">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Course Information</button>
+                        </li>
+                        
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contacts-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Review</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content mt--50" id="myTabContent">
+                    <div class="tab-pane fade  show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="course-content-wrapper">
+                            <h5 class="title">About Course</h5>
+                            <p class="disc">
+                              @Html.Raw(Model.Course.CourseDescription)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                        <div class="course-content-wrapper-main">
+                            <h5 class="title">Reviews :</h5>
+                            @if (Model.Comments != null && Model.Comments.Count > 0)
+                            {
+                                <div class="comments-section mt-4">
+                                    @foreach (var comment in Model.Comments)
+                                    {
+                                        <div class="comment card mb-3">
+                                            <div class="card-body">
+                                                <p class="card-title"><strong>@comment.userEmail</strong> <span class="fw-light" style="color:green">(@comment.status)</span>:</p>
+                                                <p class="card-text">@comment.UserComment</p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-muted">No comments available for this course.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  rts-sticky-column-item">
+                <!-- right- sticky bar area -->
+                <div class="right-course-details">
+                    <!-- single course-sidebar -->
+                    <div class="course-side-bar">
+                        <div class="thumbnail">
+                            <img src="@Model.Course.Thumbnail" alt="">
+                            <div class="vedio-icone">
+                               
+                                <div class="video-overlay">
+                                    <a class="video-overlay-close">×</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-area">
+                            <h3 class="title">₹ @Model.Course.Price</h3>
+                        
+                        </div>
+                        <div class="clock-area">
+                            <i class="fa-light fa-clock"></i>
+                            <span>2 Day left at this price!</span>
+                        </div>
+           
+
+                        <form asp-action="Cart" method="post">
+                            <input type="hidden" name="CourseName" value="@Model.Course.CourseName" />
+                            <input type="hidden" name="InstructorName" value="@Model.Course.InstructorName" />
+                            <input type="hidden" name="Price" value="@Model.Course.Price" />
+                            <input type="hidden" name="Duration" value="@duration" />
+                            <input type="submit" class="rts-btn btn-primary" value="Add to Cart" />
+                        </form>
+                       
+                        
+
+                        <div class="what-includes">
+                            <span class="m">30-Day Money-Back Guarantee</span>
+                            <h5 class="title">This course includes: </h5>
+                            <div class="single-include">
+                                <div class="left">
+                                    <i class="fa-light fa-chart-bar"></i>
+                                    <span>Levels</span>
+                                </div>
+                                <div class="right">
+                                    <span>@Model.Course.Level</span>
+                                </div>
+                            </div>
+                            <div class="single-include">
+                                <div class="left">
+                                    <i class="fa-light fa-timer"></i>
+                                    <span>Duration</span>
+                                </div>
+                                <div class="right">
+                                    <span>@Model.Course.Duration</span>
+                                </div>
+                            </div>
+                            <div class="single-include">
+                                <div class="left">
+                                    <i class="fa-regular fa-floppy-disk"></i>
+                                    <span>Subject</span>
+                                </div>
+                                <div class="right">
+                                    <span>Web Development</span>
+                                </div>
+                            </div>
+                            <div class="single-include">
+                                <div class="left">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    <span>Update</span>
+                                </div>
+                                <div class="right">
+                                    <span>@Model.Course.CreatedAt</span>
+                                </div>
+                            </div>
+                            <div class="single-include">
+                                <div class="left">
+                                    <i class="fa-sharp fa-light fa-file-certificate"></i>
+                                    <span>Certificate</span>
+                                </div>
+                                <div class="right">
+                                    <span>Certificate of completion </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single course-sidebar end -->
+                </div>
+                <!-- right- sticky bar area end -->
+                <!-- right- sticky bar area -->
+                <div class="right-course-details mt--30">
+                    <!-- single course-sidebar -->
+                    <div class="course-side-bar">
+                        <!-- course single sidebar -->
+                        <div class="course-single-information">
+                            <h5 class="title">A course by</h5>
+                            <div class="body">
+                                <div class="author">
+                                    <span>@Model.Course.InstructorName</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- course single sidebar end-->
+                        <!-- course single sidebar -->
+                        <div class="course-single-information">
+                            <h5 class="title">Material Includes</h5>
+                            <div class="body">
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Flexible Deadlines
+                                </div>
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Hours of live- demo
+                                </div>
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Hours of live- demo
+                                </div>
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    200+ downloadable resoursces
+                                </div>
+                                <!-- ingle check end -->
+                            </div>
+                        </div>
+                        <!-- course single sidebar end-->
+                        <!-- course single sidebar -->
+                        <div class="course-single-information">
+                            <h5 class="title">Requirements</h5>
+                            <div class="body">
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Access to Adobe Premiere Pro
+                                </div>
+                                <!-- ingle check end -->
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Familiarity with computers and other devices
+                                </div>
+                                <!-- ingle check end -->
+                            </div>
+                        </div>
+                        <!-- course single sidebar end-->
+                        <!-- course single sidebar -->
+                        <div class="course-single-information">
+                            <h5 class="title">Tags</h5>
+                            <div class="body">
+                                <div class="tags-wrapper">
+                                    <!-- single tags -->
+                                    <span>Course</span>
+                                    <span>Design</span>
+                                    <span>Web development</span>
+                                    <span>Business</span>
+                                    <span>UI/UX</span>
+                                    <span>Financial</span>
+                                    <!-- single tags end -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- course single sidebar end-->
+                        <!-- course single sidebar -->
+                        <div class="course-single-information">
+                            <h5 class="title">Share</h5>
+                            <div class="body">
+                                <!-- social-share-course-sidebar -->
+                                <div class="social-share-course-side-bar">
+                                    <ul>
+                                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa-brands fa-pinterest">
+                                                </i>
+                                            </a>
+                                        </li>
+                                        <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                                    </ul>
+                                </div>
+                                <!-- social-share-course-sidebar end -->
+                            </div>
+                        </div>
+                        <!-- course single sidebar end-->
+                        <!-- course single sidebar -->
+                        <div class="course-single-information last">
+                            <h5 class="title">Audience</h5>
+                            <div class="body">
+                                <!-- ingle check -->
+                                <div class="single-check">
+                                    <i class="fa-light fa-circle-check"></i>
+                                    Suitable for beginners and intermediates
+                                </div>
+                                <!-- ingle check end -->
+                            </div>
+                        </div>
+                        <!-- course single sidebar end-->
+                    </div>
+                    <!-- single course-sidebar end -->
+                </div>
+                <!-- right- sticky bar area end -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- course details area end -->
+
+                                    @{
+                                        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if TempData message exists
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        title: 'Success!',
+                        text: '@TempData["SuccessMessage"]',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    });
+            </text>
+        }
+                });
+                                        </script>
+                                    }

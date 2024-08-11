@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>E_Learning</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\AdminAssets\img\assets\css\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\img\bg\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\img\icons\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\img\inner-pages\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\img\product\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\js\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\plugins\aos\" />
+    <Folder Include="wwwroot\AdminAssets\img\assets\plugins\fontawesome\css\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\css\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\img\bg\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\img\icons\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\img\inner-pages\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\img\product\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\js\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\plugins\aos\" />
+    <Folder Include="wwwroot\AdminAssets\plugins\icons\ionic\fonts\assets\plugins\fontawesome\css\" />
+  </ItemGroup>
+
+</Project>

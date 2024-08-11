@@ -1,0 +1,69 @@
+﻿@model IEnumerable<E_Learning.Models.Course.AddCourseContent>
+
+@{
+    ViewData["Title"] = "GetSubCourseBYCorurse";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container">
+    <div class="my-course-enroll-wrapper-board">
+
+
+<h1>Get Sub-Courses By Course</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.MetaUrl)</th>
+            <th>@Html.DisplayNameFor(model => model.SubCourse)</th>
+            <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+            <th>@Html.DisplayNameFor(model => model.Question)</th>
+                    <th>↻</th>
+                    <th>🗑</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <form asp-action="Edit" method="post">
+                <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    <input type="hidden" name="Id" value="@item.Id" />
+                </td>
+                <td>
+                    <input type="text" name="Title" value="@item.Title" class="form-control" />
+                </td>
+                <td>
+                    <input type="text" name="MetaUrl" value="@item.MetaUrl" class="form-control" />
+                </td>
+                <td>
+                    <input type="text" name="SubCourse" value="@item.SubCourse" class="form-control" />
+                </td>
+                <td>
+                    <input type="text" readonly  name="CourseName" value="@item.CourseName" class="form-control" />
+                </td>
+                <td>
+                    <input type="text" name="Question" value="@item.Question" class="form-control" />
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </td>
+                </form>
+                <td>
+                    <form asp-action="Delete" method="post" style="display:inline;">
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <input type="hidden" readonly name="CourseName" value="@item.CourseName" class="form-control" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+        <div>
+        </div>

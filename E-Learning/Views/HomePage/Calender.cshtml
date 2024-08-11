@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Calender";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="dashboard-banner-area-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="dashboard-banner-area-start bg_image">
+                    
+                    <div class="author-profile-image-and-name">
+                        <div class="profile-pic">
+                            <img src="../assets/images/dashboard/ProfileIcon.jpeg" width="200px" alt="dashboard">
+                        </div>
+                        <div class="name-desig">
+                            <h1 class="title">@User.Identity.Name</h1>
+                            <div class="course-vedio">
+                                @* <div class="single">
+                                <i class="fa-thin fa-book"></i>
+                                <span>5 Course Enrolled</span>
+                                </div>
+                                <div class="single">
+                                <i class="fa-thin fa-file-certificate"></i>
+                                <span>4 Certificate</span>
+                                </div> *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dashboard banner area end -->
+<!-- rts dahboard-area-main-wrapper -->
+<div class="dashboard--area-main pt--100">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-3 rts-sticky-column-item">
+                <div class="left-sindebar-dashboard  theiaStickySidebar">
+                    <div class="dashboard-left-single-wrapper">
+                        <!-- single item -->
+                        <a asp-action="Dashboard" class="single-item ">
+                            <i class="fa-light fa-house"></i>
+                            <p>Dashboard</p>
+                        </a>
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a href="my-profile.html" class="single-item ">
+                            <i class="fa-regular fa-user"></i>
+                            <p>My Profile</p>
+                        </a>
+                        <!-- single item end -->
+                        
+                        <!-- single item -->
+                        <a asp-action="ViewCourse" class="single-item ">
+                            <i class="fa-sharp fa-light fa-bag-shopping"></i>
+                            <p>View Course</p>
+                        </a>
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a href="question-answer.html" class="single-item ">
+                            <i class="fa-regular fa-circle-question"></i>
+                            <p>Question & Answer</p>
+                        </a>
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a asp-action="Calender" class="single-item active">
+                            <i class="fa-light fa-calendar-days"></i>
+                            <p>Calendar</p>
+                        </a>
+                        <!-- single item end -->
+                    </div>
+                    
+                    <div class="dashboard-left-single-wrapper bbnone mt--40">
+                        <h4 class="title mb--5">User</h4>
+                        <!-- single item -->
+                        <a href="settings.html" class="single-item">
+                            <i class="fa-sharp fa-regular fa-gear"></i>
+                            <p>Settings</p>
+                        </a>
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a href="index.html" class="single-item">
+                            <i class="fa-light fa-right-from-bracket"></i>
+                            <a asp-action="Signout" asp-controller="Auth" class="rts-btn btn-border">LogOut</a>
+                        </a>
+                        <!-- single item end -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="calender-area-wrapper">
+                    <h5 class="title">Calendar</h5>
+                    <div class="calender-dash-wrapper" id="calender-active">
+                        <!-- calender -->
+                        <div class="wrapper">
+
+                            <div class="container-calendar">
+                                <div class="footer-container-calendar">
+                                    <select id="month" onchange="jump()">
+                                        <option value=0>Jan</option>
+                                        <option value=1>Feb</option>
+                                        <option value=2>Mar</option>
+                                        <option value=3>Apr</option>
+                                        <option value=4>May</option>
+                                        <option value=5>Jun</option>
+                                        <option value=6>Jul</option>
+                                        <option value=7>Aug</option>
+                                        <option value=8>Sep</option>
+                                        <option value=9>Oct</option>
+                                        <option value=10>Nov</option>
+                                        <option value=11>Dec</option>
+                                    </select>
+                                    <select id="year" onchange="jump()"></select>
+                                </div>
+                                <div id="monthAndYear" class="mt--30"></div>
+
+                                <!-- <div class="button-container-calendar">
+                                    <button id="previous" onclick="previous()">&#8249;</button>
+                                    <button id="next" onclick="next()">&#8250;</button>
+                                </div> -->
+
+                                <table class="table-calendar" id="calendar" data-lang="en">
+                                    <thead id="thead-month"></thead>
+                                    <tbody id="calendar-body"></tbody>
+                                </table>
+
+
+
+                            </div>
+
+                        </div>
+                        <!-- calender -->
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+</div>
+<!-- rts dahboard-area-main-wrapper end -->
+
+<div class="rts-section-gapTop">
+</div>
+

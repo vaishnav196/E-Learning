@@ -1,0 +1,92 @@
+﻿@model List<E_Learning.Models.Comments.Comments>
+
+@{
+    ViewData["Title"] = "ContentModeration";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+                <div class="content container-fluid">
+				
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-sub-header">
+									<h3 class="page-title">Comments</h3>
+									<ul class="breadcrumb">
+										<li class="breadcrumb-item"><a href="#">Comments</a></li>
+										<li class="breadcrumb-item active">Manage Comments</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+					
+				
+					<div class="row">
+						<div class="col-sm-12">
+						
+							<div class="card card-table comman-shadow">
+								<div class="card-body">
+								
+									<!-- Page Header -->
+									<div class="page-header">
+										<div class="row align-items-center">
+											<div class="col">
+												<h3 class="page-title">Comments</h3>
+											</div>
+											
+										</div>
+									</div>
+									<!-- /Page Header -->
+									
+									<div class="table-responsive">
+										<table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+											<thead class="student-thread">
+												<tr class="text-center" >
+													
+													<th>Comment ID</th>
+													<th>Comment</th>
+													<th>User Email</th>
+													<th>Course Name</th>
+													<th>Status</th>
+													<th class="text-center">Action</th>
+												</tr>
+											</thead>
+											<tbody>
+									@foreach(var data in Model)
+									{
+										<tr class="text-center">
+											<td>@data.CommentId</td>
+											<td>
+												@data.UserComment
+											</td>
+											<td>@data.userEmail</td>
+											<td>@data.courseName</td>
+											<td>@data.status</td>
+											<td class="text-center">
+												<form asp-action="Approve" asp-route-id="@data.CommentId" method="post" style="display:inline;">
+													<button type="submit" class="btn btn-sm btn-success">Approve</button>
+												</form>  ||
+												<form asp-action="DeleteComment" asp-route-id="@data.CommentId" method="post" style="display:inline;">
+													<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+												</form>
+											</td>
+										</tr>
+									}
+									
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>							
+						</div>					
+					</div>					
+				</div>
+
+		 				
+			</div>
+

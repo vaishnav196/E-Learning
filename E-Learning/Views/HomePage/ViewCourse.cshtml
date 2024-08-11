@@ -1,0 +1,66 @@
+﻿@model List<E_Learning.Models.Cart.PurchaseOrder>
+
+
+@{
+    ViewData["Title"] = "ViewCourse";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="container">
+<div class="my-course-enroll-wrapper-board">
+    <!-- single course inroll -->
+
+
+    <div class="single-course-inroll-board head">
+        <div class="name">
+            <p>My Course</p>
+        </div>
+        <div class="name">
+            <p>InstructorName</p>
+        </div>
+   
+        <div class="enroll">
+            <p>Purchased Date</p>
+        </div>
+        <div class="rating">
+            <p>End Date</p>
+        </div>
+        <div class="rating">
+            <p>GOTO Course</p>
+        </div>
+    </div>
+
+
+    @foreach (var d in Model)
+    {
+
+        <div class="single-course-inroll-board">
+         
+            <div class="name">
+                <p>@d.CourseName</p>
+            </div>
+            <div class="enroll">
+                <p>@d.InstructorName</p>
+            </div>
+            <div class="name">
+                <p>@d.PurchasedDate</p>
+            </div>
+            <div class="enroll">
+                <p>@d.EndDate</p>
+            </div>
+            <div class="enroll">
+                <form asp-action="ViewCourseContent" method="post">
+                    <input type="hidden" name="CourseName" value="@d.CourseName" />
+                    <input type="submit" class="rts-btn btn-primary" value="View" />
+                </form>
+            </div>
+
+           
+
+        </div>
+    }
+
+    <!-- single course inroll end -->
+</div>
+
+</div>

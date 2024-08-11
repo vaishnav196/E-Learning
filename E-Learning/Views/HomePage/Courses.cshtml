@@ -1,0 +1,144 @@
+﻿@model List<E_Learning.Models.Course.AddCourseCategory>
+@{
+    ViewData["Title"] = "Courses";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!-- bread crumb area -->
+<div class="rts-bread-crumbarea-1 rts-section-gap bg_image">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-main-wrapper">
+                    <h1 class="title">Our Course</h1>
+                    <div class="pagination-wrapper">
+                        <a asp-action="Index" asp-controller="HomePage">Home</a>
+                        <i class="fa-regular fa-chevron-right"></i>
+                        <a class="active" href="#">All Course</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- bread crumb area end -->
+
+<div class="rts-course-top-rating-filter-area rts-section-gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="filter-small-top-full">
+                    <div class="left-filter border w-100 rounded p-3">
+                        <span><b>Filter By</b></span>
+                        <input type="text" id="filterCourseName" placeholder="Course Name">
+                        <select id="filterLevel">
+                            <option value="">All Levels</option>
+                            <option value="Easy">Easy</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Beginner">Beginner</option>
+                        </select>
+                        <select id="filterPrice">
+                            <option value="">Sort by Price</option>
+                            <option value="lowToHigh">Low to High</option>
+                            <option value="highToLow">High to Low</option>
+                        </select>
+                        <input type="text" id="filterDuration" placeholder="Duration">
+                        <button onclick="applyFilters()" class="rts-btn btn-primary">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt--30" id="courseContainer">
+            @foreach (var d in Model)
+            {
+                
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 course-item"
+                     data-course-name="@d.CourseName"
+                     data-price="@d.Price"
+                     data-level="@d.Level"
+                     data-duration="@d.Duration">
+                     <form asp-action="ONE" method="post">
+                    <input asp-for="@d.Id" name="Id" hidden />
+                    <div class="single-course-style-three">
+                        
+                            <img src="@d.Thumbnail" alt="course">
+                            <div class="tag-thumb">
+                                <span>@d.CourseName</span>
+                            </div>
+                       
+                        <div class="body-area">
+                            <div class="course-top">
+                                <div class="tags">@d.Tag</div>
+                                <div class="price">₹ @d.Price</div>
+                            </div>
+                            
+                                <h5 class="title">@d.CourseName</h5>
+                                
+ 
+                            <div class="teacher-stars">
+                                <div class="teacher"><span>@d.InstructorName</span></div>
+                                <ul class="stars">
+                                    <li class="span">4.5</li>
+                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                    <li><i class="fa-sharp fa-solid fa-star"></i></li>
+                                    <li><i class="fa-sharp fa-regular fa-star"></i></li>
+                                </ul>
+                            </div>
+                            <div class="leasson-students">
+                                <div class="lesson">
+                                    <i class="fa-light fa-clock"></i>
+                                    <span>@d.Duration</span>
+                                </div>
+                                <div class="students">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    <span>@d.Level</span>
+                                </div>
+                            </div>
+                        </div>
+                            <p class="text-center mt-3"><input type="submit" value="View Course" /> </p>
+                    </div>
+                 
+                    </form>
+                </div>
+              
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    function applyFilters() {
+        const courseName = document.getElementById('filterCourseName').value.toLowerCase();
+        const level = document.getElementById('filterLevel').value.toLowerCase();
+        const priceOrder = document.getElementById('filterPrice').value;
+        const duration = document.getElementById('filterDuration').value.toLowerCase();
+
+        let courses = document.querySelectorAll('.course-item');
+
+        courses.forEach(course => {
+            const courseNameMatch = course.dataset.courseName.toLowerCase().includes(courseName);
+            const levelMatch = level ? course.dataset.level.toLowerCase() === level : true;
+            const durationMatch = course.dataset.duration.toLowerCase().includes(duration);
+
+            if (courseNameMatch && levelMatch && durationMatch) {
+                course.style.display = '';
+            } else {
+                course.style.display = 'none';
+            }
+        });
+
+        if (priceOrder) {
+            courses = Array.from(courses).filter(course => course.style.display !== 'none');
+            courses.sort((a, b) => {
+                const priceA = parseFloat(a.dataset.price);
+                const priceB = parseFloat(b.dataset.price);
+                return priceOrder === 'lowToHigh' ? priceA - priceB : priceB - priceA;
+            });
+            const container = document.getElementById('courseContainer');
+            container.innerHTML = '';
+            courses.forEach(course => container.appendChild(course));
+        }
+    }
+</script>

@@ -1,0 +1,114 @@
+﻿@model E_Learning.Models.Course.AddCourseContent
+
+@{
+    ViewData["Title"] = "AddCourseCont";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="page-sub-header">
+                        <h3 class="page-title">Upload Videos</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Courses</a></li>
+                            <li class="breadcrumb-item active">Add Videos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card comman-shadow">
+                    <div class="card-body">
+                        <form asp-action="AddCourseCont" asp-controller="Admin" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 class="form-title student-info">Upload Videos <span><a href="javascript:;"><i class="feather-more-vertical"></i></a></span></h5>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group w-50 local-forms">
+                                        <label asp-for="CourseName">Select Course: <span class="login-danger">*</span></label>
+                                        <select asp-for="CourseName" class="form-control select">
+                                            <option value="">Select Course</option>
+                                            @if (ViewBag.CourseNames != null)
+                                            {
+                                                foreach (var courseName in ViewBag.CourseNames)
+                                                {
+                                                    <option value="@courseName">@courseName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group w-50 local-forms">
+                                        <label asp-for="SubCourse">Enter Sub Course: <span class="login-danger">*</span></label>
+                                        <input asp-for="SubCourse" class="form-control" type="text" placeholder="Enter Sub Course">
+                                    </div>
+                                </div><br />
+                                <div class="col-12">
+                                    <div class="form-group w-50 local-forms">
+                                        <label asp-for="Title">Video Title <span class="login-danger">*</span></label>
+                                        <input asp-for="Title" class="form-control" type="text" placeholder="Enter Video Title">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group w-50 local-forms">
+                                        <label asp-for="MetaUrl">Video URL <span class="login-danger">*</span></label>
+                                        <input asp-for="MetaUrl" class="form-control" type="text" placeholder="Enter Video URL">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group w-50 local-forms">
+                                        <label asp-for="Question">Question <span class="login-danger">*</span></label>
+                                        <input asp-for="Question" class="form-control" type="text" placeholder="Enter Assignment for video">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="student-submit">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Wrapper -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '@TempData["SuccessMessage"]'
+                });
+        </text>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: '@TempData["ErrorMessage"]'
+                });
+        </text>
+    }
+        });
+</script>

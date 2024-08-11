@@ -1,0 +1,82 @@
+﻿@model E_Learning.Models.Course.CertificateViewModel
+@{
+    ViewData["Title"] = "Certificate";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    .certificate-container {
+        border: 5px solid #ddd;
+        padding: 20px;
+        margin: 50px auto;
+        max-width: 800px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .certificate-header {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+
+    .certificate-body {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+
+        .certificate-body span {
+            font-weight: bold;
+        }
+
+    .certificate-footer {
+        font-size: 1em;
+        color: #555;
+    }
+</style>
+
+<div class="container" id="certificate">
+    <div class="certificate-container">
+        <div class="certificate-background mb-5">
+            <img src="../adminassets/img/masstech-logo.png" width="300px" alt="Company Logo" class="background-logo" />
+        </div>
+        <div class="certificate-header">
+            Certificate of Completion
+        </div>
+        <div class="certificate-body">
+            <p class="mb-2">This is to certify that</p>
+            <h2>@Model.UserName</h2>
+            <p class="mb-2">has successfully completed the course</p>
+            <h2>@Model.CourseName</h2>
+            <p class="mb-2">on</p>
+            <h4>@Model.Date</h4>
+        </div>
+        <div class="certificate-footer">
+            <p>Masstech Edu Platform</p>
+        </div>
+    </div>
+</div>
+<p class="text-center"><button class="btn btn-success" onclick="downloadPDF()" style="width:150px">Download Certificate</button></p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+@{
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('certificate');
+            const opt = {
+                margin: 0.5,
+                filename: 'Certificate.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // You can add any logic to execute after PDF download here
+            });
+        }
+
+    </script>
+}

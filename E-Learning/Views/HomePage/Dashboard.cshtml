@@ -1,0 +1,176 @@
+﻿@model List<E_Learning.Models.Cart.PurchaseOrder>
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<!-- dashboard banner area start -->
+<div class="dashboard-banner-area-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="dashboard-banner-area-start bg_image  student-dashboard">
+                    <div class="rating-area-banner-dashboard">
+                    </div>
+                    <div class="author-profile-image-and-name">
+                        <div class="profile-pic">
+                            <img src="../assets/images/dashboard/ProfileIcon.jpeg" width="200px" alt="dashboard">
+                        </div>
+                        <div class="name-desig">
+                            <h1 class="title">@User.Identity.Name</h1>
+                            <div class="course-vedio">
+                                @* <div class="single">
+                                <i class="fa-thin fa-book"></i>
+                                <span>5 Course Enrolled</span>
+                                </div>
+                                <div class="single">
+                                <i class="fa-thin fa-file-certificate"></i>
+                                <span>4 Certificate</span>
+                                </div> *@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- dashboard banner area end -->
+<!-- rts dahboard-area-main-wrapper -->
+<div class="dashboard--area-main pt--100">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-3">
+                <div class="left-sindebar-dashboard">
+                    <div class="dashboard-left-single-wrapper">
+                        <!-- single item -->
+                        <a href="student-dashboard.html" class="single-item active">
+                            <i class="fa-light fa-house"></i>
+                            <p>Dashboard</p>
+                        </a>
+                        <!-- single item end -->
+                        <!-- single item -->
+                        
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a asp-action="ViewCourse" class="single-item ">
+                            <i class="fa-sharp fa-light fa-bag-shopping"></i>
+                            <p>View Course</p>
+                        </a>
+                        <!-- single item end -->
+                        <!-- single item -->
+                        
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a asp-action="Calender" class="single-item ">
+                            <i class="fa-light fa-calendar-days"></i>
+                            <p>Calendar</p>
+                        </a>
+                        <!-- single item end -->
+                    </div>
+                    <div class="dashboard-left-single-wrapper bbnone mt--40">
+                        <h4 class="title mb--5">User</h4>
+                        <!-- single item -->
+                        
+                        <!-- single item end -->
+                        <!-- single item -->
+                        <a asp-action="Signout" asp-controller="Auth" class="single-item ">
+                            <i class="fa-light fa-right-from-bracket"></i>
+                            <p>LogOut</p>
+                        </a>
+                        <!-- single item end -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="right-sidebar-dashboard">
+                    
+                    <div class="row mt--40">
+                        <div class="col-lg-12">
+                            <!-- in progress course area -->
+                            <div class="in-progress-course-wrapper  title-between-dashboard mb--10">
+                                <h5 class="title">My Courses</h5>
+                                <a href="#" class="more">View All</a>
+                            </div>
+                            <!-- in progress course area end -->
+                            <!-- my course enroll wrapper -->
+                            <div class="my-course-enroll-wrapper-board">
+                                <!-- single course inroll -->
+
+
+                                <div class="single-course-inroll-board head">
+                                    <div class="name">
+                                        <p>ID</p>
+                                    </div>
+                                    <div class="name">
+                                        <p>My Course</p>
+                                    </div>
+                                    <div class="name">
+                                        <p>InstructorName</p>
+                                    </div>
+                                    <div class="enroll">
+                                        <p>Price</p>
+                                    </div>
+                                    <div class="enroll">
+                                        <p>Purchased Date</p>
+                                    </div>
+                                    <div class="rating">
+                                        <p>End Date</p>
+                                    </div>
+                                    <div class="rating">
+                                        <p>View Course</p>
+                                    </div>
+                                </div>
+
+
+                                @foreach (var d in Model)
+                                {
+
+                                    <div class="single-course-inroll-board">
+                                        <div class="name">
+                                            <p>@d.Id</p>
+                                        </div>
+                                        <div class="name">
+                                            <p>@d.CourseName</p>
+                                        </div>
+                                        <div class="enroll">
+                                            <p>@d.InstructorName</p>
+                                        </div>
+                                      
+                                        <div class="enroll">
+                                            <p>@d.Price</p>
+                                        </div>
+                                        <div class="name">
+                                            <p>@d.PurchasedDate</p>
+                                        </div>
+                                        <div class="enroll">
+                                            <p>@d.EndDate</p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                <form asp-action="ViewCourseContent" method="post">
+                                                    <input type="hidden" name="CourseName" value="@d.CourseName" />
+                                                    <input type="submit" class="rts-btn btn-primary" value="View" />
+                                                </form>
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                                
+                                <!-- single course inroll end -->
+                            </div>
+                            <!-- my course enroll wrapper end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- rts dahboard-area-main-wrapper end -->
+
+
+<div class="rts-section-gap">
+</div>

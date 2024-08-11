@@ -1,0 +1,329 @@
+﻿@model E_Learning.Models.Course.CourseContentQuizViewModel
+
+@{
+    ViewData["Title"] = "ViewCourseContent";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    .lock-icon {
+        display: none;
+        margin-left: 10px;
+    }
+
+    .play-video-wrapper.disabled .lock-icon {
+        display: inline-block;
+    }
+
+    #star-rating .fa-star {
+        font-size: 24px;
+        cursor: pointer;
+        color: #ccc;
+    }
+
+        #star-rating .fa-star.selected {
+            color: gold;
+        }
+
+    .rts-lession-left {
+        /* Adjust height as needed */
+        max-height: 170vh; /* or any height that fits your layout */
+        overflow-y: auto; /* enables vertical scrolling */
+        overflow-x: hidden; /* hides horizontal scrolling, if not needed */
+    }
+
+        /* Optional: Styling for scrollbar to make it more visually appealing */
+        .rts-lession-left::-webkit-scrollbar {
+            width: 8px; /* width of the scrollbar */
+        }
+
+        .rts-lession-left::-webkit-scrollbar-thumb {
+            background-color: darkgrey; /* color of the scrollbar */
+            border-radius: 4px; /* rounded corners */
+        }
+
+        .rts-lession-left::-webkit-scrollbar-track {
+            background: #f1f1f1; /* background of the scrollbar track */
+        }
+</style>
+
+<div class="rts-lession-details-area-start">
+    <div class="rts-lession-content-wrapper">
+        <div class="rts-lession-left">
+            <div class="course-content-wrapper-main">
+                <div class="accordion mt--30" id="accordionExample">
+                    @foreach (var courseContent in Model.CourseContent)
+                    {
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading@courseContent.Id">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@courseContent.Id" aria-expanded="true" aria-controls="collapse@courseContent.Id">
+                                    <span>@courseContent.Title</span>
+                                </button>
+                            </h2>
+                            <div id="collapse@courseContent.Id" class="accordion-collapse collapse show" aria-labelledby="heading@courseContent.Id" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <a href="javascript:void(0);" class="play-video-wrapper" data-url="@courseContent.MetaUrl" data-question="@courseContent.Question" data-title="@courseContent.Title" data-subcourse="@courseContent.SubCourse" data-coursename="@courseContent.CourseName">
+                                        <div class="left">
+                                            <i class="fa-light fa-circle-play"></i>
+                                            <span>@courseContent.Title</span>
+                                        </div>
+                                        <div class="right">
+                                            <span class="play">Preview</span>
+                               
+                               
+                                            <i class="fa fa-lock lock-icon"></i> <!-- Lock icon added here -->
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="rts-lession-right">
+            <div class="lesson-top-bar">
+                <div class="left-area">
+                    <div class="toggle-class" id="toggle-left-back">
+                        <i class="fa-light fa-chevron-left"></i>
+                    </div>
+                    <span>Course Content</span>
+                </div>
+                <div class="right">
+                    <a href="#"><i class="fa-solid fa-x"></i></a>
+                </div>
+            </div>
+
+            @if (Model.CourseContent != null && Model.CourseContent.Any())
+            {
+                 <iframe class="mb-5" id="videoIframe" width="560" height="315" src="" title="Course video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            }
+
+ 
+      
+            <div class="col-lg-8 order-cl-1 order-lg-1 order-md-2 order-sm-2 order-2 ps-5">
+                <div class="course-details-btn-wrapper pb--50">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Assignments</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">MCQs</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="commets-tab" data-bs-toggle="tab" data-bs-target="#comment" type="button" role="tab" aria-controls="comment" aria-selected="false">Comments</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="Certificate-tab" data-bs-toggle="tab" data-bs-target="#certificate" type="button" role="tab" aria-controls="certificate" aria-selected="false">Certificate</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content mt--50" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="course-content-wrapper ps-5">
+                            <h5 class="title">Assignment</h5>
+                            <p class="disc" id="currentQuestion">
+                                @Model.CourseContent.First().Question
+                            </p>
+                            <form id="assignmentForm" onsubmit="clearForm(event)">
+                                <input type="file" class="form-control mb-3" />
+                                <button type="submit" class="btn btn-success" style="width:200px">Submit Assignment</button>
+                            </form>
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="certificate" role="tabpanel" aria-labelledby="Certificate-tab">
+                        <a asp-action="Certificate"><button id="certificateButton" class="btn form-control btn-success m-3" style="width:150px" disabled>View Certificate</button></a>
+                    </div>
+                    <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="commets-tab">
+                        <h3>Give Ratings</h3>
+                        <div class="mb-2">
+
+                            <div id="star-rating" class="me-4 mb-3">
+                                <i class="fa fa-star" data-value="1"></i>
+                                <i class="fa fa-star" data-value="2"></i>
+                                <i class="fa fa-star" data-value="3"></i>
+                                <i class="fa fa-star" data-value="4"></i>
+                                <i class="fa fa-star" data-value="5"></i>
+                            </div>
+                            <form asp-action="CreateRateing" method="post">
+
+                                <input type="hidden" name="CourseName" value="@Model.CourseContent.First().CourseName" />
+                                @* <input type="hidden" id="rating-value" name="rating" /> *@
+                                <input type="hidden" id="rating-value" name="rating" />
+                                @* <input type="number" class="form-control" name="rating" placeholder="Enter Your rating" /> *@
+                                
+                                <button type="submit" class="btn btn-primary p-2 rts-btn">Submit Rating</button>
+                            </form>
+                        </div>
+                        <div>
+                            <h3>Comment</h3>
+                            <form asp-action="CreateComment" method="post">
+                                <input type="hidden" name="CourseName" value="@Model.CourseContent.First().CourseName" />
+                                @* <input type="text" class="form-control" name="Comment" value="" placeholder="Enter Your Comment" /> *@
+                                <textarea name="Comment" class="form-control mb-3" placeholder="Enter Your Comment"></textarea>
+                                <input type="hidden" name="Comment" value="" />
+                                @* <input type="submit" class="rts-btn btn-primary" value="Submit comment" /> *@
+                                <button type="submit" class="btn btn-primary p-2 rts-btn">Submit Comment</button>
+                            </form>
+
+                        </div>
+
+
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="course-content-wrapper-main">
+                            <h5 class="title">MCQs</h5>
+                            <ul id="quizList">
+                                @foreach (var quiz in Model.Quizzes)
+                                {
+                                    <li data-coursename="@quiz.CourseName" data-subcourse="@quiz.Subcourse" class="mb-3" data-title="@quiz.title" data-answer="@quiz.answer">
+                                        <p><strong>@quiz.question</strong></p>
+                                        <input type="button" class="btn btn-outline-primary mb-3" name="quiz_@quiz.Id" value="@quiz.Option1" />
+                                        <input type="button" class="btn btn-outline-primary mb-3" name="quiz_@quiz.Id" value="@quiz.Option2" />
+                                        <input type="button" class="btn btn-outline-primary mb-3" name="quiz_@quiz.Id" value="@quiz.Option3" />
+                                        <input type="button" class="btn btn-outline-primary mb-3" name="quiz_@quiz.Id" value="@quiz.Option4" />
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".play-video-wrapper");
+        const videoIframe = document.querySelector("#videoIframe");
+        const questionDisplay = document.getElementById("currentQuestion");
+        const quizList = document.getElementById("quizList").children;
+
+        links.forEach(link => {
+            link.classList.add("disabled"); // Initially disable all video links except the first
+        });
+
+        if (links.length > 0) {
+            links[0].classList.remove("disabled");
+        }
+
+        links.forEach((link, index) => {
+            link.addEventListener("click", function () {
+                if (this.classList.contains("disabled")) {
+                    return; // Prevent click if the link is disabled
+                }
+
+                const url = "https://www.youtube.com/embed/" + this.getAttribute("data-url") + "?rel=0&modestbranding=1&showinfo=0&controls=1&disablekb=1&iv_load_policy=3";
+                const question = this.getAttribute("data-question");
+                const title = this.getAttribute("data-title");
+                const subcourse = this.getAttribute("data-subcourse");
+                const coursename = this.getAttribute("data-coursename");
+
+                if (videoIframe) {
+                    videoIframe.src = url;
+                }
+                questionDisplay.textContent = question;
+
+                // Filter quizzes based on selected video
+                Array.from(quizList).forEach(quiz => {
+                    if (quiz.getAttribute("data-title") === title && quiz.getAttribute("data-subcourse") === subcourse && quiz.getAttribute("data-coursename") === coursename) {
+                        quiz.style.display = "block";
+                    } else {
+                        quiz.style.display = "none";
+                    }
+                });
+
+                // Disable the next video link initially if it hasn't been unlocked before
+                if (index < links.length - 1 && !links[index + 1].classList.contains("unlocked")) {
+                    links[index + 1].classList.add("disabled");
+                }
+            });
+        });
+
+        // Adding event listeners to quiz buttons
+        const quizButtons = document.querySelectorAll("#quizList input[type='button']");
+        quizButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const selectedAnswer = this.value;
+                const correctAnswer = this.closest("li").getAttribute("data-answer");
+                const siblingButtons = this.closest("li").querySelectorAll("input[type='button']");
+
+                // Reset all sibling buttons to default
+                siblingButtons.forEach(btn => {
+                    btn.classList.remove("btn-success", "btn-danger");
+                    btn.classList.add("btn-outline-primary");
+                });
+
+                // Apply the appropriate class to the clicked button
+                if (selectedAnswer === correctAnswer) {
+                    this.classList.add("btn-success");
+                    this.classList.remove("btn-outline-primary");
+                } else {
+                    this.classList.add("btn-danger");
+                    this.classList.remove("btn-outline-primary");
+                }
+
+                // Check if all quizzes related to the current video are answered correctly
+                const currentVideoTitle = this.closest("li").getAttribute("data-title");
+                const currentSubCourse = this.closest("li").getAttribute("data-subcourse");
+                const currentCourseName = this.closest("li").getAttribute("data-coursename");
+
+                const allCorrect = Array.from(quizList).every(quiz => {
+                    if (quiz.getAttribute("data-title") === currentVideoTitle && quiz.getAttribute("data-subcourse") === currentSubCourse && quiz.getAttribute("data-coursename") === currentCourseName) {
+                        const quizButtons = quiz.querySelectorAll("input[type='button']");
+                        return Array.from(quizButtons).some(btn => btn.classList.contains("btn-success"));
+                    }
+                    return true;
+                });
+
+                if (allCorrect) {
+                    // Enable the next video link if all quizzes are answered correctly
+                    const currentVideoIndex = Array.from(links).findIndex(link => link.getAttribute("data-title") === currentVideoTitle && link.getAttribute("data-subcourse") === currentSubCourse && link.getAttribute("data-coursename") === currentCourseName);
+                    if (currentVideoIndex < links.length - 1) {
+                        links[currentVideoIndex + 1].classList.remove("disabled");
+                        links[currentVideoIndex + 1].classList.add("unlocked"); // Mark as unlocked
+                    } else if (currentVideoIndex === links.length - 1) {
+                        // All quizzes of the last video are correct, show the certificate button
+                        certificateButton.removeAttribute("disabled");
+                    }
+                }
+                
+
+            });
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('#star-rating .fa-star');
+        const ratingValue = document.getElementById('rating-value');
+
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const value = this.getAttribute('data-value');
+                ratingValue.value = value;
+
+                stars.forEach(s => s.classList.remove('selected'));
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+            });
+        });
+    });
+    function clearForm(event) {
+        // Prevent the form from refreshing the page
+        event.preventDefault();
+
+        // Clear the form
+        document.getElementById('assignmentForm').reset();
+
+        // Show SweetAlert message
+        Swal.fire({
+            title: 'Success!',
+            text: 'Your assignment has been submitted successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    }
+</script>

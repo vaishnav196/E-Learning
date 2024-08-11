@@ -1,0 +1,138 @@
+﻿@{
+    ViewData["Title"] = "AddMaterial";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="page-sub-header">
+                        <h3 class="page-title">Add Material</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Courses</a></li>
+                            <li class="breadcrumb-item active">Add Material</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card comman-shadow">
+                    <div class="card-body">
+        <div class="form-group">
+            <label>Course:</label>
+            <select class="form-control">
+                <option>Select Course</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Sub Course:</label>
+            <select class="form-control">
+                <option>Select Sub Course</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Topic:</label>
+            <select class="form-control">
+                <option>Select Topic</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Quiz:</label>
+            <select id="quizCount" class="form-control">
+                <option>Select No of Quiz</option>
+                @{
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+        </div>
+        <div id="questionsContainer" class="row"></div>
+        <div class="form-group">
+            <label>Assignment:</label>
+            <input type="file" class="form-control" />
+        </div>
+        <button class="btn btn-primary">Add</button>
+    </div>
+</div>
+</div></div></div></div>
+@section Scripts {
+    <script>
+        document.getElementById("quizCount").addEventListener("change", function () {
+            var count = parseInt(this.value);
+            var container = document.getElementById("questionsContainer");
+            container.innerHTML = ''; // Clear previous questions
+
+            for (var i = 1; i <= count; i++) {
+                var cardDiv = document.createElement("div");
+                cardDiv.classList.add("card", "col-md-4", "m-3");
+
+                var cardBodyDiv = document.createElement("div");
+                cardBodyDiv.classList.add("card-body");
+
+                var questionDiv = document.createElement("div");
+                questionDiv.classList.add("form-group");
+
+                var questionLabel = document.createElement("label");
+                questionLabel.textContent = "Question " + i + ":";
+                questionDiv.appendChild(questionLabel);
+
+                var questionInput = document.createElement("input");
+                questionInput.type = "text";
+                questionInput.classList.add("form-control");
+                questionInput.name = "Question" + i;
+                questionDiv.appendChild(questionInput);
+
+                cardBodyDiv.appendChild(questionDiv);
+
+                for (var j = 1; j <= 4; j++) {
+                    var optionDiv = document.createElement("div");
+                    optionDiv.classList.add("form-group");
+
+                    var optionLabel = document.createElement("label");
+                    optionLabel.textContent = "Option " + j + ":";
+                    optionDiv.appendChild(optionLabel);
+
+                    var optionInput = document.createElement("input");
+                    optionInput.type = "text";
+                    optionInput.classList.add("form-control");
+                    optionInput.name = "Question" + i + "Option" + j;
+                    optionDiv.appendChild(optionInput);
+
+                    cardBodyDiv.appendChild(optionDiv);
+                }
+
+                var correctAnswerDiv = document.createElement("div");
+                correctAnswerDiv.classList.add("form-group");
+
+                var correctAnswerLabel = document.createElement("label");
+                correctAnswerLabel.textContent = "Correct Answer for Question " + i + ":";
+                correctAnswerDiv.appendChild(correctAnswerLabel);
+
+                var correctAnswerSelect = document.createElement("select");
+                correctAnswerSelect.classList.add("form-control");
+                correctAnswerSelect.name = "CorrectAnswer" + i;
+
+                for (var k = 1; k <= 4; k++) {
+                    var option = document.createElement("option");
+                    option.value = k;
+                    option.textContent = "Option " + k;
+                    correctAnswerSelect.appendChild(option);
+                }
+
+                correctAnswerDiv.appendChild(correctAnswerSelect);
+                cardBodyDiv.appendChild(correctAnswerDiv);
+
+                cardDiv.appendChild(cardBodyDiv);
+                container.appendChild(cardDiv);
+            }
+        });
+    </script>
+}

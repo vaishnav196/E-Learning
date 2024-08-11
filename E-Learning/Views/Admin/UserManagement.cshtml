@@ -1,0 +1,85 @@
+﻿@model List<E_Learning.Models.Auth.Users>
+
+@{
+	ViewData["Title"] = "ContentModeration";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="page-sub-header">
+						<h3 class="page-title">Users</h3>
+						<ul class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#">Users</a></li>
+							<li class="breadcrumb-item active">Manage Users</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Page Header -->
+
+
+		<div class="row">
+			<div class="col-sm-12">
+
+				<div class="card card-table comman-shadow">
+					<div class="card-body">
+
+						<!-- Page Header -->
+						<div class="page-header">
+							<div class="row align-items-center">
+								<div class="col">
+									<h3 class="page-title">Users</h3>
+								</div>
+
+							</div>
+						</div>
+						<!-- /Page Header -->
+
+						<div class="table-responsive">
+							<table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+								<thead class="student-thread">
+									<tr>
+
+										<th> ID</th>
+										<th>Name</th>
+										<th>User Email</th>
+										<th>Status</th>
+										<th class="text-end">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var data in Model)
+									{
+										<tr>
+											<td>@data.Id</td>
+											<td>@data.Name</td>
+											<td>@data.Email</td>
+											<td>@data.Role</td>
+											<td class="text-end">
+												<form asp-action="BlockUser" asp-route-email="@data.Email" method="post" style="display:inline;">
+													<button type="submit" class="btn btn-sm bg-success" @(data.Role == "Admin" ? "disabled" : "")>Block/Unblock</button>
+												</form>
+											</td>
+										</tr>
+									}
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+

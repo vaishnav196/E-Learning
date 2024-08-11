@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+	<title>Preskool - Dashboard</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="../AdminAssets/img/Masstech-Logo-Small.png">
+
+	<!-- Fontfamily -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&amp;display=swap" rel="stylesheet">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="../AdminAssets/css/bootstrap.min.css">
+
+	<!-- Feathericon CSS -->
+	<link rel="stylesheet" href="../AdminAssets/plugins/feather/feather.css">
+
+	<!-- Pe7 CSS -->
+	<link rel="stylesheet" href="../AdminAssets/plugins/icons/flags/flags.css">
+
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="../AdminAssets/plugins/fontawesome/css/fontawesome.min.css">
+	<link rel="stylesheet" href="../AdminAssets/plugins/fontawesome/css/all.min.css">
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="../AdminAssets/css/style.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- TOSTART -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+</head>
+<body>
+
+	<!-- Main Wrapper -->
+	<div class="main-wrapper">
+
+		<!-- Header -->
+		<div class="header">
+
+			<!-- Logo -->
+			<div class="header-left">
+				<a href="index.html" class="logo">
+					<img src="../AdminAssets/img/Masstech-Logo.png" alt="Logo">
+				</a>
+				<a href="index.html" class="logo logo-small">
+					<img src="../AdminAssets/img/Masstech-Logo-Small.png" alt="Logo" width="30" height="30">
+				</a>
+			</div>
+			<!-- /Logo -->
+
+			<div class="menu-toggle">
+				<a href="javascript:void(0);" id="toggle_btn">
+					<i class="fas fa-bars"></i>
+				</a>
+			</div>
+
+			<!-- Search Bar -->
+			@* <div class="top-nav-search">
+				<form>
+					<input type="text" class="form-control" placeholder="Search here">
+					<button class="btn" type="submit"><i class="fas fa-search"></i></button>
+				</form>
+			</div> *@
+			<!-- /Search Bar -->
+			<!-- Mobile Menu Toggle -->
+			<a class="mobile_btn" id="mobile_btn">
+				<i class="fas fa-bars"></i>
+			</a>
+			<!-- /Mobile Menu Toggle -->
+			<!-- Header Right Menu -->
+			<ul class="nav user-menu">
+				
+				
+				<li class="nav-item zoom-screen me-2">
+					<a href="#" class="nav-link header-nav-list win-maximize">
+						<img src="../AdminAssets/img/icons/header-icon-04.svg" alt="">
+					</a>
+				</li>
+
+				<!-- User Menu -->
+				<li class="nav-item dropdown has-arrow new-user-menus">
+					<a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+						<div class="user-img">
+							<img class="rounded-circle" src="../AdminAssets/img/profiles/avatar-01.jpg" width="31" alt="Ryan Taylor">
+							<div class="user-text">
+								<h6>Hello Admin</h6>
+								<p class="text-muted mb-0">Administrator</p>
+							</div>
+						</div>
+					</a>
+					<div class="dropdown-menu">
+						<div class="user-header">
+							<div class="avatar avatar-sm">
+								<img src="../AdminAssets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+							</div>
+							<div class="user-text">
+								<h6>Hello Admin</h6>
+								<p class="text-muted mb-0">Administrator</p>
+							</div>
+						</div>
+						<a asp-action="Signout" asp-controller="Auth" class="dropdown-item">LogOut</a>
+					</div>
+				</li>
+				<!-- /User Menu -->
+
+			</ul>
+			<!-- /Header Right Menu -->
+
+		</div>
+		<!-- /Header -->
+		<!-- Sidebar -->
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-inner slimscroll">
+				<div id="sidebar-menu" class="sidebar-menu">
+					<ul>
+						<li class="menu-title">
+							<span>Main Menu</span>
+						</li>
+						<li class="submenu">
+							<a href="#"><i class="feather-grid"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="Index">Admin Dashboard</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#"><i class="fas fa-graduation-cap"></i> <span> User Management</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="UserManagement" asp-controller="Admin">Manage Users</a></li>
+							</ul>
+						</li>
+						<li class="submenu">
+							<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Course Management</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="AddCourse" asp-controller="Admin">Add Course</a></li>
+								<li><a asp-action="AddCourseCont" asp-controller="Admin">Manage Courses</a></li>
+								<li><a asp-action="CourseManagement" asp-controller="Admin">Update Course</a></li>
+								<li><a asp-action="AddQuizes" asp-controller="Admin"> Add Quiz</a></li>
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#"><i class="fas fa-file-invoice-dollar"></i> <span> Sales and Transactions</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="ShowOrderHistory" asp-controller="Admin">View Transactions</a></li>
+								
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#"><i class="fa-solid fa-envelope"></i> <span> Notifications</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="Index" asp-controller="Notify">Send Notifications</a></li>
+							</ul>
+						</li>
+						
+						<li class="submenu">
+							<a href="#"><i class="fa fa-newspaper"></i> <span> Marketing Tools</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="AddPromotion" asp-controller="Notify">Create Promotional Campaigns</a></li>
+							</ul>
+						</li>
+
+
+						<li class="submenu">
+							<a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Content Moderation</span> <span class="menu-arrow"></span></a>
+							<ul>
+								<li><a asp-action="ContentModeration" asp-controller="Admin">Manage Comments</a></li>
+							</ul>
+						</li>
+
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /Sidebar -->
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+		<!-- Footer -->
+		<footer>
+			<p>COPYRIGHT © 2024 MASSTECH BUSINESS SOLUTIONS PVT LTD.</p>
+		</footer>
+		<!-- /Footer -->
+
+	</div>
+	<!-- /Page Wrapper -->
+	</div>
+	<!-- /Main Wrapper -->
+	<!-- jQuery -->
+	<script src="../AdminAssets/js/jquery-3.7.1.min.js"></script>
+
+	<!-- Bootstrap Core JS -->
+	<script src="../AdminAssets/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Feather Icon JS -->
+	<script src="../AdminAssets/js/feather.min.js"></script>
+
+	<!-- Slimscroll JS -->
+	<script src="../AdminAssets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+	<!-- Chart JS -->
+	<script src="../AdminAssets/plugins/apexchart/apexcharts.min.js"></script>
+	<script src="../AdminAssets/plugins/apexchart/chart-data.js"></script>
+
+	<!-- Custom JS -->
+	<script src="../AdminAssets/js/script.js"></script>
+	@RenderSection("Scripts", required: false)
+</body>
+
+</html>
